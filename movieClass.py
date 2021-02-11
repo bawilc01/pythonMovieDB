@@ -41,9 +41,11 @@ class Movie:
                 rating.append(r)
                 formatType.append(ft)
 
+            filename = 'movieList.csv'
             m = {'Title': title, 'Rating': rating, 'MovieType': formatType}
             df = pd.DataFrame(m)
-            print(df)
+            df.to_csv(filename, mode='a+', header=False)
+            # print(df)
 
             # return self(title, rating, formatType)
 
