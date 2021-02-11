@@ -1,6 +1,5 @@
 # Movie Class example
 import csv
-from pip._vendor.distlib.compat import raw_input
 
 
 class Movie:
@@ -11,25 +10,17 @@ class Movie:
         self.rating = rating
         self.formatType = int(formatType)
 
-    # def __str__(self):
-    #     s = ["-----",
-    #          f'Movie Title: {self.title}',
-    #          f'Movie Rating: {self.rating}',
-    #          f'Movie Type: {self.formatType}']
-    #     return "\n".join(s)
 
     @classmethod
     def addMovie(cls):
-        return cls(
-            raw_input(f'Please enter a movie title: '),
-            raw_input(f'Please enter a movie rating: '),
-            int(raw_input(f'Please select from the following for movie type: \n'
-                          f'1 - DVD \n'
-                          f'2 - Bluray \n'
-                          f'3 - Digital')),
-        )
+        title = input(f'Please enter a movie title: ')
+        rating = input(f'Please enter a movie rating: ')
+        formatType = int(input(f'Please select from the following for movie type: \n'
+                      f'1 - DVD \n'
+                      f'2 - Bluray \n'
+                      f'3 - Digital'))
 
-        fields = [self.title, self.rating, self.formatType]
+        fields = [title, rating, formatType]
         with (Movie.filename, 'a+') as f:
             writer = csv.writer(f)
             writer.writerow(fields)
@@ -51,8 +42,8 @@ def main(logger):
                    f'\n 3 - Delete Movie'
                    f'\n Please type the number for your choice: ')
 
-    logger.info(f'Great! Your choice is: {choice}')
-
     if choice == 2:
-        movie = input(Movie.addMovie())
+        logger.info(f'Great! Your choice is: {choice}')
+        movie = Movie()
+        movie.addMovie()
         logger.info(f'You entered {movie} to your database!')
