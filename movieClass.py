@@ -10,17 +10,6 @@ class Movie:
         self.rating = rating
         self.formatType = int(formatType)
 
-    def show_movie(self, logger):
-
-        # filename = 'movieList.csv'
-
-        # with open(filename, 'a+', encoding='utf-8') as f:
-        #     writer = csv.writer(f)
-        #     for key, value in m.items():
-        #         writer.writerow([key, value])
-        logger.info(f'You have added {self.title}, {self.rating}, {self.formatType} to your database.')
-
-
     @classmethod
     def addMovie(self, logger):
         try:
@@ -44,23 +33,25 @@ class Movie:
             filename = 'movieList.csv'
             m = {'Title': title, 'Rating': rating, 'MovieType': formatType}
             df = pd.DataFrame(m)
-            df.to_csv(filename, mode='a+', header=False)
+            df.to_csv(filename, mode='a+', header=False, index=False)
             # print(df)
 
-            # return self(title, rating, formatType)
+            #TODO need to do a split function with foreach loop
+            logger.info(f'You entered {title}, {rating}, {formatType} to your database.')
 
         except:
             logger.info(f'Invalid info!')
             exit()
 
 
-
-    def viewMovieList(self):
-        pass
-
     def removeMovie(self):
         pass
 
+
+def viewMovieList():
+    filename = 'movieList.csv'
+    data = pd.read_csv(filename)
+    print(data)
 
 def main(logger):
     logger.info(f'Welcome to Movie List.')
@@ -72,7 +63,11 @@ def main(logger):
                    f'\n Please type the number for your choice: ')
     choice = int(choice)
 
-    if choice == 2:
+    if choice == 1:
+        logger.info(f'Great! Your choice is: {choice}')
+        viewMovieList()
+    elif choice == 2:
         logger.info(f'Great! Your choice is: {choice}')
         movie = Movie.addMovie(logger)
-        exit()
+    else:
+        logger.info('No delete function yet.')
