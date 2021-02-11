@@ -8,9 +8,10 @@
 
 2. Run the main.py file and follow instructions.
 
-3. When adding movies, the movies are stored in a csv file saved in the same folder as the .py files. Each entry is read 
-into a pandas dataframe. New movies are appended to the csv. Open the file on your local machine if 
-you would like to see the csv that is acting as a "database".
+3. When adding movies, the movies are stored in a csv file called movieList.csv saved in the same folder as the .py files. 
+   I'm ignoring it in the .gitignore for now.  
+   Each entry is read into a pandas dataframe. New movies are appended to the csv. Open the file on your local machine if 
+   you would like to see the csv that is acting as a "database".
 
 I haven't figured out how to print the headers once and then only append the values. Right now, I have the headers set 
 to False and manually typed 'Title, Rating, Movie Type' into the first row of my csv. It looks like
