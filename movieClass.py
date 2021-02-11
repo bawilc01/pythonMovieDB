@@ -3,15 +3,21 @@ import csv
 
 
 class Movie:
-    filename = 'movieList.csv'
 
     def __init__(self, title, rating, formatType):
         self.title = title
         self.rating = rating
         self.formatType = int(formatType)
 
-    def show_movie(self):
-        return f'You have added {self.title}, {self.rating}, {self.formatType} to your database.'
+    def show_movie(self, logger):
+        filename = 'movieList.csv'
+        m = {'Title': self.title, 'Rating': self.rating,
+             'MovieType': str(self.formatType)}
+        with open(filename, 'a+', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            for key, value in m.items():
+                writer.writerow([key, value])
+        logger.info(f'You have added {self.title}, {self.rating}, {self.formatType} to your database.')
 
 
     @classmethod
@@ -22,18 +28,15 @@ class Movie:
             formatType = input(f'Please select for movie type: \n'
                           f'1 - DVD \n'
                           f'2 - Bluray \n'
-                          f'3 - Digital')
+                          f'3 - Digital \n')
             return self(title, rating, formatType)
+
+
         except:
             logger.info(f'Invalid info!')
             exit()
 
 
-        fields = [self.title, self.rating, self.formatType]
-        with (Movie.filename, 'a+') as f:
-            writer = csv.writer(f)
-            writer.writerow(fields)
-            f.close()
 
     def viewMovieList(self):
         pass
@@ -50,10 +53,10 @@ def main(logger):
                    f'\n 2 - Add Movie'
                    f'\n 3 - Delete Movie'
                    f'\n Please type the number for your choice: ')
+    choice = int(choice)
 
-    if choice == str(2):
+    if choice == 2:
         logger.info(f'Great! Your choice is: {choice}')
         movie = Movie.addMovie(logger)
-        movie.show_movie()
-        logger.info(f'You entered {movie} to your database!')
+        movie.show_movie(logger)
         exit()
