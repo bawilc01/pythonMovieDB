@@ -10,17 +10,26 @@ class Movie:
         self.rating = rating
         self.formatType = int(formatType)
 
+    def show_movie(self):
+        return f'You have added {self.title}, {self.rating}, {self.formatType} to your database.'
+
 
     @classmethod
-    def addMovie(cls):
-        title = input(f'Please enter a movie title: ')
-        rating = input(f'Please enter a movie rating: ')
-        formatType = int(input(f'Please select from the following for movie type: \n'
-                      f'1 - DVD \n'
-                      f'2 - Bluray \n'
-                      f'3 - Digital'))
+    def addMovie(self, logger):
+        try:
+            title = input(f'Please enter a movie title: ')
+            rating = input(f'Please enter a movie rating: ')
+            formatType = input(f'Please select for movie type: \n'
+                          f'1 - DVD \n'
+                          f'2 - Bluray \n'
+                          f'3 - Digital')
+            return self(title, rating, formatType)
+        except:
+            logger.info(f'Invalid info!')
+            exit()
 
-        fields = [title, rating, formatType]
+
+        fields = [self.title, self.rating, self.formatType]
         with (Movie.filename, 'a+') as f:
             writer = csv.writer(f)
             writer.writerow(fields)
@@ -42,8 +51,9 @@ def main(logger):
                    f'\n 3 - Delete Movie'
                    f'\n Please type the number for your choice: ')
 
-    if choice == 2:
+    if choice == str(2):
         logger.info(f'Great! Your choice is: {choice}')
-        movie = Movie()
-        movie.addMovie()
+        movie = Movie.addMovie(logger)
+        movie.show_movie()
         logger.info(f'You entered {movie} to your database!')
+        exit()
