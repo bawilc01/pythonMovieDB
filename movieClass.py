@@ -11,12 +11,6 @@ class Movie:
         self.formatType = int(formatType)
 
     def show_movie(self, logger):
-        m = {'Title': self.title, 'Rating': self.rating,
-             'MovieType': str(self.formatType)}
-
-        df = pd.DataFrame(m)
-
-        print(df)
 
         # filename = 'movieList.csv'
 
@@ -30,14 +24,28 @@ class Movie:
     @classmethod
     def addMovie(self, logger):
         try:
-            title = input(f'Please enter a movie title: ')
-            rating = input(f'Please enter a movie rating: ')
-            formatType = input(f'Please select for movie type: \n'
-                          f'1 - DVD \n'
-                          f'2 - Bluray \n'
-                          f'3 - Digital \n')
-            return self(title, rating, formatType)
+            numberOfMovies = input(f'How many movies do you want to enter?\n')
+            numberOfMovies = int(numberOfMovies)
+            title = []
+            rating = []
+            formatType = []
 
+            for i in range(numberOfMovies):
+                t = input(f'Please enter a movie title: ')
+                r = input(f'Please enter a movie rating: ')
+                ft = input(f'Please select for movie type: \n'
+                              f'1 - DVD \n'
+                              f'2 - Bluray \n'
+                              f'3 - Digital \n')
+                title.append(t)
+                rating.append(r)
+                formatType.append(ft)
+
+            m = {'Title': title, 'Rating': rating, 'MovieType': formatType}
+            df = pd.DataFrame(m)
+            print(df)
+
+            # return self(title, rating, formatType)
 
         except:
             logger.info(f'Invalid info!')
@@ -65,5 +73,4 @@ def main(logger):
     if choice == 2:
         logger.info(f'Great! Your choice is: {choice}')
         movie = Movie.addMovie(logger)
-        movie.show_movie(logger)
         exit()
