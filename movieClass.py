@@ -1,5 +1,6 @@
 # Movie Class example
 import csv
+import pandas as pd
 
 
 class Movie:
@@ -10,13 +11,19 @@ class Movie:
         self.formatType = int(formatType)
 
     def show_movie(self, logger):
-        filename = 'movieList.csv'
         m = {'Title': self.title, 'Rating': self.rating,
              'MovieType': str(self.formatType)}
-        with open(filename, 'a+', encoding='utf-8') as f:
-            writer = csv.writer(f)
-            for key, value in m.items():
-                writer.writerow([key, value])
+
+        df = pd.DataFrame(m)
+
+        print(df)
+
+        # filename = 'movieList.csv'
+
+        # with open(filename, 'a+', encoding='utf-8') as f:
+        #     writer = csv.writer(f)
+        #     for key, value in m.items():
+        #         writer.writerow([key, value])
         logger.info(f'You have added {self.title}, {self.rating}, {self.formatType} to your database.')
 
 
