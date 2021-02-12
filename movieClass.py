@@ -34,7 +34,7 @@ class Movie:
             m = {'Title': title, 'Rating': rating, 'MovieType': formatType}
             df = pd.DataFrame(m)
             df.to_csv(filename, mode='a+', header=False, index=False)
-            # print(df)
+            print(df)
 
             #TODO need to do a split function with foreach loop
             logger.info(f'You entered {title}, {rating}, {formatType} to your database.')
