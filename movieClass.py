@@ -39,8 +39,9 @@ class Movie:
             #TODO need to do a split function with foreach loop
             logger.info(f'You entered {title}, {rating}, {formatType} to your database.')
 
-        except:
+        except Exception as e:
             logger.info(f'Invalid info!')
+            raise e
             exit()
 
 
